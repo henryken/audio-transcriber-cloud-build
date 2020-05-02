@@ -2,22 +2,22 @@
 
 ## Prerequisites
 1.  Enable APIs
-    ```shell script
+    ```bash
     gcloud services enable cloudbuild.googleapis.com speech.googleapis.com
     ```
 1.  (Optional) Create GCS bucket, if you do not have existing GCS bucket to use
-    ```shell script
+    ```bash
     export GCS_LOCATION=asia-southeast1
     ```
-    ```shell script
+    ```bash
     export GCS_BUCKET=gs://bucket
     ```
-    ```shell script
+    ```bash
     gsutil mb -l $GCS_LOCATION $GCS_BUCKET
     ```
 1.  (Optional) Grant current project's Cloud Build service account permission to the GCS bucket 
     (if the GCS bucket resides in different GCP project)
-    ```shell script
+    ```bash
     export CLOUD_BUILD_SA=$(gcloud projects describe $PROJECT --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com
     gsutil iam ch serviceAccount:$CLOUD_BUILD_SA:roles/storage.objectAdmin $GCS_BUCKET
     ```
@@ -36,6 +36,6 @@
       _FILENAME: episode1
     ```
 1.  Submit a job to Cloud Build
-    ```shell script
+    ```bash
     gcloud builds submit .
     ```
