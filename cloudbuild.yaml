@@ -41,7 +41,7 @@ steps:
 
   # Upload the transcription json and txt file to GCS bucket
   - name: gcr.io/cloud-builders/gsutil
-    args: ['cp', '${_FILENAME}.json', '${_FILENAME}.txt', '${_GCS_FOLDER_PATH}/${_FILENAME}.txt']
+    args: ['cp', '${_FILENAME}.json', '${_FILENAME}.txt', '${_GCS_FOLDER_PATH}/']
 
 
 substitutions:
