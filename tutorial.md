@@ -18,12 +18,13 @@
 1.  (Optional) Grant current project's Cloud Build service account permission to the GCS bucket 
     (if the GCS bucket resides in different GCP project)
     ```bash
+    export PROJECT=$(gcloud info --format='value(config.project)')
     export CLOUD_BUILD_SA=$(gcloud projects describe $PROJECT --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com
     gsutil iam ch serviceAccount:$CLOUD_BUILD_SA:roles/storage.objectAdmin $GCS_BUCKET
     ```
 
 ## How to Run
-1.  Modify the substitution variables in [cloudbuild.yaml](cloudbuild.yaml) based on your needs
+1.  Open `cloudbuild.yaml` and modify the substitution variables at the bottom of the file
     ```yaml
     substitutions:
       # URL where to download audio file from
