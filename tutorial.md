@@ -13,7 +13,7 @@ Click the **Start** button to move to the next step.
     <walkthrough-open-cloud-shell-button></walkthrough-open-cloud-shell-button>
 
 1.  Enable the required APIs
-    <walkthrough-enable-apis apis="cloudbuild.googleapis.com,speech.googleapis.com"></walkthrough-enable-apis>
+    <walkthrough-enable-apis apis="cloudbuild.googleapis.com,speech.googleapis.com"></walkthrough-enable-apis>  
     Note: If clicking the above button does not successfully enable the APIs after some time, copy the command below 
     and run in the Cloud Shell. 
     ```bash
