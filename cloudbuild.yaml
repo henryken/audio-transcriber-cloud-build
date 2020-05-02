@@ -1,0 +1,42 @@
+steps:
+- name: gcr.io/cloud-builders/wget
+  args: ['-O', '${_FILENAME}.mp3', '${_AUDIO_URL}']
+
+- name: linuxserver/ffmpeg
+  args: ['-i', '${_FILENAME}.mp3', '-ac', '1', '${_FILENAME}.flac']
+
+- name: gcr.io/cloud-builders/gsutil
+  args: ['cp', '${_FILENAME}.flac', '${_GCS_FOLDER_PATH}/${_FILENAME}.flac']
+
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: /bin/bash
+  args:
+    - -c
+    - gcloud ml speech recognize-long-running ${_GCS_FOLDER_PATH}/${_FILENAME}.flac --language-code=en-US --async --format="value(name)" > operation-id.txt
+
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: /bin/bash
+  args:
+    - -c
+    - gcloud ml speech operations wait `cat operation-id.txt`
+
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: /bin/bash
+  args:
+    - -c
+    - gcloud ml speech operations describe `cat operation-id.txt` > ${_FILENAME}.json
+
+- name: stedolan/jq
+  entrypoint: /bin/bash
+  args:
+    - -c
+    - jq <${_FILENAME}.json '.response.results[].alternatives[].transcript' -r > ${_FILENAME}.txt
+
+- name: gcr.io/cloud-builders/gsutil
+  args: ['cp', '${_FILENAME}.txt', '${_GCS_FOLDER_PATH}/${_FILENAME}.txt']
+
+
+substitutions:
+  _AUDIO_URL: https://eps-dot-gcppodcast.appspot.com/dl/Google.Cloud.Platform.Podcast.Episode.1.mp3
+  _GCS_FOLDER_PATH: gs://bucket-name/gcp-podcast
+  _FILENAME: episode1
