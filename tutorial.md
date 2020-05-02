@@ -14,7 +14,8 @@ Click the **Start** button to move to the next step.
 
 1.  Enable the required APIs
     <walkthrough-enable-apis apis="cloudbuild.googleapis.com,speech.googleapis.com"></walkthrough-enable-apis>
-    Copy the command below if the clicking above button does not successfully enable the APIs.
+    Note: If clicking the above button does not successfully enable the APIs after some time, copy the command below 
+    and run in the Cloud Shell. 
     ```bash
     gcloud services enable cloudbuild.googleapis.com speech.googleapis.com
     ```
@@ -39,7 +40,7 @@ Click the **Start** button to move to the next step.
 
 ## How to Run
 1.  Open <walkthrough-editor-select-line filePath="cloudbuild.yaml" startLine="47" startCharacterOffset="0" endLine="47" endCharacterOffset="15">cloudbuild.yaml</walkthrough-editor-select-line> 
-    and modify the substitution variables at the bottom of the file
+    and modify the substitution variables at the bottom of the file. Do not forget to save the file.
     ```yaml
     substitutions:
       # URL where to download audio file from
@@ -51,14 +52,19 @@ Click the **Start** button to move to the next step.
       # The filename that you want to use for the generated files
       _FILENAME: <filename>
     ```
+
 1.  Submit the job to Cloud Build
     ```bash
     gcloud builds submit .
     ```
 
+1.  Wait until the job finishes. It may take a while, depending on the duration of your audio file.
+
+1.  Find your transcript txt file in the GCS bucket folder (`_GCS_FOLDER_PATH`) you specified in `cloudbuild.yaml`. 
+
+
 ## Congratulations
 
 <walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
 
-You have successfully transcribed an audio file. Your transcript txt file can be found in the GCS bucket folder you
-set in `_GCS_FOLDER_PATH`. 
+You have successfully transcribed an audio file using Cloud Speech-to-Text and Cloud Build!
