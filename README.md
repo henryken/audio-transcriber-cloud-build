@@ -1,4 +1,4 @@
-# audio-transcriber-cloud-build
+# Audio Transcriber using Cloud Build
 Cloud Build config for transcribing audio using GCP Cloud Speech-to-Text.
 
 ## Prerequisites
