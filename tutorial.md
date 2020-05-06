@@ -80,3 +80,4 @@ Click the **Start** button to move to the next step.
 <walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
 
 You have successfully transcribed an audio file using Cloud Speech-to-Text and Cloud Build!
+Please let me know how it goes and share with me your experience!
